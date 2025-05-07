@@ -14,7 +14,7 @@ class Const_Iterator  {
         using pointer = const T*;
         using iterator_category = std::random_access_iterator_tag;
 
-        Const_Iterator(pointer p);
+        explicit Const_Iterator(pointer p);
         Const_Iterator(const Const_Iterator<T>& other);
         Const_Iterator& operator= (const Const_Iterator& other);
         reference operator*() const;

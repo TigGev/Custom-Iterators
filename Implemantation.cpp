@@ -130,12 +130,31 @@ template <typename T>
 Iterator<T>::pointer Iterator<T>::operator->() {return ptr;}
 
 template <typename T>
+Iterator<T>& Iterator<T>::operator++() {
+    ++ptr;
+    return *this;
+}
 
 template <typename T>
+Iterator<T> Iterator<T>::operator++(int) {
+    Iterator tmp(*this);
+    ++ptr;
+    return tmp;
+}
 
 template <typename T>
+Iterator<T>& Iterator<T>::operator--() {
+    --ptr;
+    return *this;
+}
 
 template <typename T>
+Iterator<T> Iterator<T>::operator--(int) {
+    Iterator tmp(*this);
+    --ptr;
+    return tmp;
+}
 
 template <typename T>
+reference Iterator<T>::operator[](size_t n) const;
 
