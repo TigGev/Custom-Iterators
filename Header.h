@@ -47,6 +47,7 @@ class Iterator : public Const_Iterator {
 //usings here at first 
         using reference = T&;
         using pointer =  T*;
+        using difference_type = std::ptrdiff_t;
 
         Iterator(pointer);
         Iterator(const Iterator& other);
@@ -56,13 +57,19 @@ class Iterator : public Const_Iterator {
         Iterator operator++(int); //postfix
         Iterator& operator--();
         Iterator operator--(int); //postfix
-        reference operator[](size_t n) const;
-        friend Iterator& operator+(difference_type n, Iterator& it);
-        Iterator& operator+(difference_type n) const;
-        Iterator& operator-(difference_type n) const;
+        reference operator[](size_t n); // const ?
+        Iterator operator+(difference_type n) const;
+        friend Iterator operator+(difference_type n, Iterator& it);
+        Iterator operator-(difference_type n) const;
         Iterator& operator+=(difference_type n);
         Iterator& operator-=(difference_type n);
 
+        bool operator==(const Iterator& other) const;
+        bool operator!=(const Iterator& other) const;
+        bool operator<=(const Iterator& other) const;
+        bool operator>=(const Iterator& other) const;
+        bool operator>(const Iterator& other) const;
+        bool operator<(const Iterator& other) const;
 };
 
 

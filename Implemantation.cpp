@@ -124,10 +124,10 @@ template <typename T>
 Iterator<T>::Iterator(const Iterator<T>& other) : Const_Iterator(other.ptr) {}
 
 template <typename T>
-Iterator<T>::reference Iterator<T>::operator*() {return *ptr;}
+Iterator<T>::reference Iterator<T>::operator*() {return const_cast<reference>(*(static_cast<Const_Iterator&>(*this)));}
 
 template <typename T>
-Iterator<T>::pointer Iterator<T>::operator->() {return ptr;}
+Iterator<T>::pointer Iterator<T>::operator->() {return const_cast<pointer>(static_cast<Const_Iterator&>(*this).operator->());}
 
 template <typename T>
 Iterator<T>& Iterator<T>::operator++() {
@@ -156,5 +156,51 @@ Iterator<T> Iterator<T>::operator--(int) {
 }
 
 template <typename T>
-reference Iterator<T>::operator[](size_t n) const;
+typename Iterator<T>::reference Iterator<T>::operator[](size_t n) {
+    return const_cast<reference>(static_cast<Const_Iterator&>(*this)[n]);
+}
+
+template <typename T>
+Iterator<T> Iterator<T>::operator+(difference_type n) const {
+    return Iterator<T>(ptr + n);
+}
+
+template <typename T>
+Iterator<T> operator+(typename Iterator<T>::difference_type n, Iterator<T>& it) {
+    return it + n;
+}
+
+template <typename T>
+Iterator<T> Iterator<T>::operator-(difference_type n) const {
+    return Iterator<T>(ptr - n);
+}
+
+template <typename T>
+Iterator<T>& Iterator<T>::operator+=(difference_type n) {
+    ptr += n;
+    return *this;
+}
+
+template <typename T>
+Iterator<T>& Iterator<T>::operator-=(difference_type n) {
+    ptr -= n;
+    return *this;
+}
+template <typename T>
+bool Iterator<T>::operator==(const Iterator<T>& other) const {return static_cast<Const_Iterator&>(*this) == static_cast<Const_Iterator&>(other)}
+
+template <typename T>
+bool Iterator<T>::operator!=(const Iterator<T>& other) const {return static_cast<Const_Iterator&>(*this) != static_cast<Const_Iterator&>(other)}
+
+template <typename T>
+bool Iterator<T>::operator<=(const Iterator<T>& other) const {return static_cast<Const_Iterator&>(*this) <= static_cast<Const_Iterator&>(other)}
+
+template <typename T>
+bool Iterator<T>::operator>=(const Iterator<T>& other) const {return static_cast<Const_Iterator&>(*this) >= static_cast<Const_Iterator&>(other)}
+
+template <typename T>
+bool Iterator<T>::operator>(const Iterator<T>& other) const {return static_cast<Const_Iterator&>(*this) > static_cast<Const_Iterator&>(other)}
+
+template <typename T>
+bool Iterator<T>::operator<(const Iterator<T>& other) const {return static_cast<Const_Iterator&>(*this) < static_cast<Const_Iterator&>(other)}
 
