@@ -97,5 +97,8 @@ class Reverse_Iterator {
             Reverse_Iterator operator--(int);
             difference_type operator-(difference_type n) const;
             Reverse_Iterator& operator-=(difference_type n);
+
 };
+
+
 #endif
