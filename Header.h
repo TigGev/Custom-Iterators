@@ -48,7 +48,7 @@ class Iterator : public Const_Iterator {
         using reference = T&;
         using pointer =  T*;
         using difference_type = std::ptrdiff_t;
-
+        
         Iterator(pointer);
         Iterator(const Iterator& other);
         reference operator*();
@@ -72,5 +72,30 @@ class Iterator : public Const_Iterator {
         bool operator<(const Iterator& other) const;
 };
 
+template <typename Iter>
+class Reverse_Iterator {
+            Iter current;
+    public:
+            using iterator_type = Iter;
+            using value_type = std::iterator_traits<Iter>::value_type;
+            using iterator_category = std::iterator_traits<Iter>::iterator_category;
+            using difference_type = std::iterator_traits<Iter>::difference_type;
+            using reference = std::iterator_traits<Iter>::reference;
+            using pointer = std::iterator_traits<Iter>::pointer;
 
+            explicit Reverse_Iterator(Iter it);
+            iterator_type base() const;
+            Reverse_Iterator& operator= (const Reverse_Iterator& other);
+            reference operator*() const;
+            pointer operator->() const;
+            reference operator[](difference_type index) const;
+            Reverse_Iterator& operator++();
+            Reverse_Iterator operator++(int);
+            Reverse_Iterator operator+(difference_type n) const;
+            Reverse_Iterator& operator+=(difference_type n);
+            Reverse_Iterator& operator--();
+            Reverse_Iterator operator--(int);
+            difference_type operator-(difference_type n) const;
+            Reverse_Iterator& operator-=(difference_type n);
+};
 #endif
