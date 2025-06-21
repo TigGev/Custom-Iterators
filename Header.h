@@ -101,4 +101,13 @@ class Reverse_Iterator {
 };
 
 
+// template <typename T>
+// class vector {
+//             T* data
+//             size_t size;
+//             size_t capacity;
+//       public:
+    
+// };
+
 #endif
